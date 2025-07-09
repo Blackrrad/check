@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ระบบเช็คชื่อนักศึกษา</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📚 ระบบเช็คชื่อนักศึกษา</h1>
+            <p>จัดการการเข้าเรียนอย่างมีประสิทธิภาพ</p>
+        </div>
+
+        <div class="main-content">
+            <!-- เพิ่มนักศึกษาใหม่ -->
+            <div class="section">
+                <h2>📝 เพิ่มนักศึกษาใหม่</h2>
+                <div class="form-group">
+                    <label for="studentName">ชื่อ-นามสกุล:</label>
+                    <input type="text" id="studentName" placeholder="กรอกชื่อ-นามสกุล">
+                </div>
+                <div class="form-group">
+                    <label for="studentId">รหัสนักศึกษา:</label>
+                    <input type="text" id="studentId" placeholder="กรอกรหัสนักศึกษา">
+                </div>
+                <button class="btn" onclick="addStudent()">เพิ่มนักศึกษา</button>
+            </div>
+
+            <!-- เช็คชื่อ -->
+            <div class="section">
+                <h2>✅ เช็คชื่อ</h2>
+                <div class="form-group">
+                    <label for="checkStudentId">รหัสนักศึกษา:</label>
+                    <input type="text" id="checkStudentId" placeholder="กรอกรหัสนักศึกษาเพื่อเช็คชื่อ">
+                </div>
+                <div class="form-group">
+                    <label for="attendanceStatus">สถานะ:</label>
+                    <select id="attendanceStatus">
+                        <option value="present">มาเรียน</option>
+                        <option value="absent">ขาดเรียน</option>
+                        <option value="late">มาสาย</option>
+                    </select>
+                </div>
+                <button class="btn btn-success" onclick="checkAttendance()">เช็คชื่อ</button>
+            </div>
+
+            <!-- รายชื่อนักศึกษาและสถานะ -->
+            <div class="section">
+                <h2>👥 รายชื่อนักศึกษา</h2>
+                <button class="btn" onclick="showAddBulkModal()">เพิ่มหลายคนพร้อมกัน</button>
+                <button class="btn btn-danger" onclick="clearAllStudents()">ล้างข้อมูลทั้งหมด</button>
+                <div id="studentList" class="student-list"></div>
+            </div>
+
+            <!-- สถิติ -->
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalStudents">0</div>
+                    <div class="stat-label">นักศึกษาทั้งหมด</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="presentCount">0</div>
+                    <div class="stat-label">มาเรียน</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="absentCount">0</div>
+                    <div class="stat-label">ขาดเรียน</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="lateCount">0</div>
+                    <div class="stat-label">มาสาย</div>
+                </div>
+            </div>
+
+            <!-- Export -->
+            <div class="export-section">
+                <h2>📊 ส่งออกข้อมูล</h2>
+                <button class="btn" onclick="exportToCSV()">ส่งออกเป็น CSV</button>
+                <button class="btn" onclick="printReport()">พิมพ์รายงาน</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal สำหรับเพิ่มนักศึกษาหลายคน -->
+    <div id="bulkAddModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeBulkModal()">&times;</span>
+            <h2>เพิ่มนักศึกษาหลายคนพร้อมกัน</h2>
+            <p>กรอกข้อมูลนักศึกษา (หนึ่งคนต่อบรรทัด) ในรูปแบบ: รหัสนักศึกษา,ชื่อ-นามสกุล</p>
+            <textarea id="bulkStudentData" rows="10" placeholder="60111111,นาย ก ข&#10;60111112,นาง ค ง&#10;60111113,นางสาว จ ฉ"></textarea>
+            <button class="btn" onclick="addBulkStudents()">เพิ่มทั้งหมด</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
